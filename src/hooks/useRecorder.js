@@ -1,0 +1,71 @@
+import convertBlobToMP3 from "../utils/convertBlobToMp3";
+import downloadProcessedFile from "../utils/downloadProcessedFile";
+import { useState, useRef } from "react";
+
+const displayMediaOptions = {
+  audio: {
+    suppressLocalAudioPlayback: false,
+    sampleRate: 44100,
+    channelCount: 2,
+    echoCancellation: false,
+    noiseSuppression: false,
+    autoGainControl: false,
+    googAutoGainControl: false,
+  },
+  preferCurrentTab: false,
+  selfBrowserSurface: "exclude",
+  systemAudio: "include",
+  surfaceSwitching: "include",
+  monitorTypeSurfaces: "include",
+};
+
+const useRecorder = () => {
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
+  const mediaRecorderRef = useRef(null);
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia(
+        displayMediaOptions
+      );
+
+      const audioTrack = stream.getAudioTracks()[0];
+      const audioStream = new MediaStream([audioTrack]);
+      const mediaRecorder = new MediaRecorder(audioStream, {
+        mimeType: "audio/webm",
+      });
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          setRecordedChunks((prev) => [...prev, event.data]);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(recordedChunks, { type: "audio/webm" });
+        await convertBlobToMP3(blob);
+        setRecordedChunks([]);
+
+        setTimeout(async () => downloadProcessedFile(), 20000);
+      };
+
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.start();
+      setIsRecording(true);
+    } catch (err) {
+      console.error("Error accessing media devices.", err);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  return { isRecording, startRecording, stopRecording };
+};
+
+export default useRecorder;
