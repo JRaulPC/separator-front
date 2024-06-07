@@ -1,6 +1,6 @@
+import { useState, useRef } from "react";
 import convertBlobToMP3 from "../utils/convertBlobToMp3";
 import downloadProcessedFile from "../utils/downloadProcessedFile";
-import { useState, useRef } from "react";
 
 const displayMediaOptions = {
   audio: {
@@ -30,7 +30,13 @@ const useRecorder = () => {
         displayMediaOptions
       );
 
-      const audioTrack = stream.getAudioTracks()[0];
+      // Check if audio tracks are available
+      const audioTracks = stream.getAudioTracks();
+      if (audioTracks.length === 0) {
+        throw new Error("No audio tracks available");
+      }
+
+      const audioTrack = audioTracks[0];
       const audioStream = new MediaStream([audioTrack]);
       const mediaRecorder = new MediaRecorder(audioStream, {
         mimeType: "audio/webm",
@@ -43,11 +49,17 @@ const useRecorder = () => {
       };
 
       mediaRecorder.onstop = async () => {
-        const blob = new Blob(recordedChunks, { type: "audio/webm" });
-        await convertBlobToMP3(blob);
-        setRecordedChunks([]);
+        // Use a functional update to ensure recordedChunks state is up-to-date
+        setRecordedChunks((chunks) => {
+          const blob = new Blob(chunks, { type: "audio/webm" });
 
-        setTimeout(async () => downloadProcessedFile(), 20000);
+          convertBlobToMP3(blob).then(() => {
+            setRecordedChunks([]);
+            setTimeout(() => downloadProcessedFile(), 20000);
+          });
+
+          return [];
+        });
       };
 
       mediaRecorderRef.current = mediaRecorder;

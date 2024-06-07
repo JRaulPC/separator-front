@@ -1,14 +1,12 @@
 const PageDescription = () => {
   return (
-    <div className="flex items-center justify-center">
-      <div className="w-[800px] flex justify-start">
-        <p className="text-left text-white">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-          posuere laoreet est, quis scelerisque mauris consequat ut. Morbi
-          malesuada dictum massa, sit amet fringilla nulla. Maecenas efficitur
-          quis erat quis lobortis. Vestibulum vel lacus malesuada, lobortis
-          neque non, posuere purus. Mauris eu purus suscipit, vehicula ante a,
-          imperdiet diam. Sed eu placerat sem. Quisque suscipit massa quis diam
+    <div className="flex items-center justify-center  pt-8 ">
+      <div className="w-[65%] flex justify-center">
+        <p className=" text-xl  text-center text-black font-open">
+          This page allows you to record the incoming sound from any of your
+          browser tabs, send the recording to an AI model, and receive the track
+          separated into stems. It uses the Spleeter source separation library
+          with pre-trained models written in Python and utilizes TensorFlow.
         </p>
       </div>
     </div>

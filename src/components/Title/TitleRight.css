@@ -1,0 +1,8 @@
+.custom-bg {
+  background-image: url("./stems-bg.jpg");
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  color: transparent;
+}

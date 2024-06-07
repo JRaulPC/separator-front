@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const localRoute = "import.meta.env.API_URL;";
+export const localRoute = "http://127.0.0.1:5000/";
 
 const postRecordedAudioFile = async (audioBlob) => {
   try {
