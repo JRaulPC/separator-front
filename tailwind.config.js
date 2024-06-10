@@ -11,7 +11,9 @@ module.exports = {
     fontFamily: {
       archivo: ["Archivo Black", "sans-serif"],
       geologica: ["Geologica", "sans-serif"],
-      darker: ["Darker Grotesque", "sans-serif"],
+      darker: ["Darker Grotesque"],
+      tiny: ["Tiny5", "sans-serif"],
+      montserrat: ["Montserrat Alternates", "sans-serif"],
     },
     extend: {
       keyframes: {
