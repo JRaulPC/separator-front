@@ -2,8 +2,8 @@ import "./TitleRight.css";
 
 const TitleRight = (): React.ReactElement => {
   return (
-    <span className="h-fit block text-6xl  text-blue-900 bg-clip-text underline under ">
-      STEMS
+    <span className="h-fit pl-2 text-xl text-fuchsia-100 bg-clip-text underline under font-montserrat animate-fade-right animate-once animate-ease-linear ">
+      browser recorder stem separator
     </span>
   );
 };

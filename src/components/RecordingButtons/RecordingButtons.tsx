@@ -79,24 +79,24 @@ const RecordingButtons = (): React.ReactElement => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4  relative ">
-      <div className="flex flex-col justify-center items-center gap-4">
+    <div className="flex flex-col justify-center gap-4  relative ">
+      <div className="flex flex-col justify-center  gap-4">
         <Card
           id="button-hover"
           isFooterBlurred
           radius="lg"
-          className="border-none bg-black h-[150px] w-[250px] justify-center flex items-center button-hover "
+          className="border-none bg-slate-900 h-[70px] w-[450px] justify-center flex items-center button-hover "
           isHoverable
         >
           <Button
-            className="text-4xl bg-red-800 w-[95%] h-[95%] text-white antialiased font-darker font-semibold  "
+            className="text-4xl bg-black w-[98%] h-[98%] hover:bg-red-700 text-white antialiased font-montserrat font-semibold  "
             variant="flat"
             color="default"
             radius="sm"
             size="sm"
             onPress={handleToggle}
           >
-            {isRecording ? "Stop" : "Record"}
+            {isRecording ? "Stop" : "Start"}
           </Button>
         </Card>
         {isRecording ? (
