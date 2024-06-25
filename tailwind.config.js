@@ -9,6 +9,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
+      founders: ["Test Founders Grotesk", "sans-serif"],
       archivo: ["Archivo Black", "sans-serif"],
       geologica: ["Geologica", "sans-serif"],
       darker: ["Darker Grotesque"],

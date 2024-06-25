@@ -1,33 +1,30 @@
-import Description from "./components/Description/Description";
-import Explanation from "./components/Explanation/Explanation";
-import Footer from "./components/Footer/Footer";
-import RecordingButtons from "./components/RecordingButtons/RecordingButtons";
-import TitleRight from "./components/Title/TitleLeft";
-import TitleRightt from "./components/Title/TitleRightt";
+import PageDescription from "./components/Description/Description";
+import Contact from "./components/Footer/Contact";
+import RecordingButton from "./components/RecordingButton/RecordingButton";
+import Title from "./components/Title/Title";
 
 function App() {
   return (
-    <div className="App">
-      <div className="flex flex-row  ">
-        <section className="p-16 flex flex-col gap-8 ">
-          <header className="pt-20 flex flex-col">
-            <TitleRight />
-            <TitleRightt />
-          </header>
-          <RecordingButtons />
-        </section>
-        <section className=" border-double border-r-2 border-l-2 h-full w-[30%] z-10 absolute right-44 bg-slate-950">
-          <ul className="flex flex-col gap-4 pt-20">
-            <li>
-              <Explanation />
-            </li>
-            <li>
-              <Description />
-            </li>
-          </ul>
-        </section>
-      </div>
-      <Footer />
+    <div>
+      <section className="background-container">
+        <div className="background-image"></div>
+        <div className="background-gradient"></div>
+        <div className="content">
+          <div className="flex flex-row justify-center data-scroll-container ">
+            <section className="flex flex-col gap-8">
+              <header className=" flex items-center justify-center">
+                <Title />
+              </header>
+              <RecordingButton />
+            </section>
+          </div>
+        </div>
+      </section>
+      <section className="h-[1000px]">
+        <h2 className="p-16 text-5xl ">About</h2>
+        <PageDescription />
+        <Contact />
+      </section>
     </div>
   );
 }

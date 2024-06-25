@@ -46,7 +46,7 @@ const Contact = (): React.ReactElement => {
       <li className="flex animate-fade-right">
         <span className="h-fit bg-yellow-400 px-2 ">{`Say ${currentHello}`}</span>
       </li>
-      <li className="text-white">
+      <li className="">
         <a href="gilcassone@protonmail.com">gilcassone@protonmail.com</a>
         <br />
         <a href="https://raulcassone.io"> Check my dev Portfolio.</a>
