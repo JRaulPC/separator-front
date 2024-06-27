@@ -1,9 +1,13 @@
-const Title = (): React.ReactElement => {
+interface TitleProps {
+  isAboutOpen: boolean;
+}
+
+const Title = ({ isAboutOpen }: TitleProps): React.ReactElement => {
   return (
-    <div className="flex flex-row text-white justify-center pt-16">
+    <div className="flex flex-row text-white justify-center pt-8">
       <h1
         id="target-title"
-        className="target font-founders uppercase text-[12rem] flex flex-col  "
+        className="target font-founders uppercase text-[12rem] flex flex-col"
       >
         <span className="">Tab</span>
         <span className="leading-[0]  mt-[-35px] ml-[20px] opacity-80">

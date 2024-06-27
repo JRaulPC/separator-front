@@ -42,14 +42,16 @@ const Contact = (): React.ReactElement => {
   }, [cachedLanguages, index]);
 
   return (
-    <ul className="flex gap-2 p-8">
+    <ul className="flex gap-2 p-16 pt-56">
       <li className="flex animate-fade-right">
         <span className="h-fit bg-yellow-400 px-2 ">{`Say ${currentHello}`}</span>
       </li>
       <li className="">
         <a href="gilcassone@protonmail.com">gilcassone@protonmail.com</a>
         <br />
-        <a href="https://raulcassone.io"> Check my dev Portfolio.</a>
+        <a className="text-lime-950 font-bold" href="https://raulcassone.io">
+          my dev portfolio.
+        </a>
       </li>
     </ul>
   );

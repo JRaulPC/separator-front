@@ -1,30 +1,64 @@
-import PageDescription from "./components/Description/Description";
-import Contact from "./components/Footer/Contact";
+import { useEffect, useState } from "react";
+import About from "./components/About/About";
 import RecordingButton from "./components/RecordingButton/RecordingButton";
 import Title from "./components/Title/Title";
+import gsap from "gsap";
 
 function App() {
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+
+  const toggleSlideover = () => {
+    if (isAboutOpen) {
+      // Slide is closing
+      setShowButton(false);
+      setTimeout(() => {
+        setShowButton(true);
+      }, 2000); // Show button after 2 seconds
+    } else {
+      // Slide is opening
+      setShowButton(false);
+    }
+    setIsAboutOpen(!isAboutOpen);
+  };
+
+  useEffect(() => {
+    if (isAboutOpen) {
+      gsap.to(".slide", { duration: 3, x: 1024 });
+    }
+  }, [isAboutOpen]);
+
   return (
     <div>
-      <section className="background-container">
+      <div className="background-container">
         <div className="background-image"></div>
         <div className="background-gradient"></div>
-        <div className="content">
-          <div className="flex flex-row justify-center data-scroll-container ">
-            <section className="flex flex-col gap-8">
-              <header className=" flex items-center justify-center">
-                <Title />
+        <main className="content">
+          {showButton && (
+            <button
+              onClick={toggleSlideover}
+              className="about-button right-0 absolute text-white p-10 text-4xl z-30 opacity-75 animate-fade animate-duration-[1500ms] animate-ease-in"
+            >
+              {`${isAboutOpen ? "" : "about"}`}
+            </button>
+          )}
+
+          <div className="flex flex-row justify-center">
+            <section
+              className={`flex flex-col gap-8 ${
+                isAboutOpen ? "animate-fadeOut" : "animate-fadeIn"
+              }`}
+            >
+              <header className="flex items-center justify-center">
+                <Title isAboutOpen={isAboutOpen} />
               </header>
               <RecordingButton />
             </section>
           </div>
-        </div>
-      </section>
-      <section className="h-[1000px]">
-        <h2 className="p-16 text-5xl ">About</h2>
-        <PageDescription />
-        <Contact />
-      </section>
+          <About isAboutOpen={isAboutOpen} toggleSlideover={toggleSlideover} />
+        </main>
+        <span className="h-30 ">v-1.0</span>
+      </div>
     </div>
   );
 }

@@ -18,15 +18,23 @@ module.exports = {
     },
     extend: {
       keyframes: {
-        animate: {
-          "0%, 100%": { "background-position": "left top" },
-          "25%": { "background-position": "right bottom" },
-          "50%": { "background-position": "left bottom" },
-          "75%": { "background-position": "right top" },
+        slideIn: {
+          "0%": { opacity: 0, transform: "translateX(100%)" },
+          "100%": { opacity: 1, transform: "translateX(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        fadeOut: {
+          "0%": { opacity: "0.75" },
+          "100%": { opacity: "0" },
         },
       },
       animation: {
-        animate: "animate 15s ease-in-out infinite",
+        slideIn: "animate 1s ease-in ",
+        fadeIn: "fadeIn 3s ease-in-out forwards",
+        fadeOut: "fadeOut 0.5s ease-in-out forwards",
       },
     },
   },

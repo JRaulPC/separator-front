@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@gsap/react": "^2.1.1",
     "@nextui-org/card": "^2.0.30",
     "@nextui-org/react": "^2.4.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -18,6 +19,7 @@
     "locomotive-scroll": "^4.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-locomotive-scroll": "^0.2.2",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"

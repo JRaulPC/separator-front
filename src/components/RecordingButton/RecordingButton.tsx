@@ -1,105 +1,57 @@
 import { Button } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 import useRecorder from "../../hooks/useRecorder";
 import "./RecordingButton.css";
 
 const RecordingButton = (): React.ReactElement => {
   const { startRecording, isRecording, stopRecording } = useRecorder();
-  const [isRunning, setIsRunning] = useState(false);
-  const [time, setTime] = useState(0);
-  const [intervalId, setIntervalId] = useState<any | null>(null);
+  const [startTime, setStartTime] = useState(0);
+  const [now, setNow] = useState<number | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   const handleToggle = () => {
     if (isRecording) {
       stopRecording();
+      clearInterval(intervalRef.current!);
     } else {
-      if (isRunning) {
-        clearInterval(intervalId!);
-        setIsRunning(false);
-      } else {
-        const id = setInterval(() => {
-          setTime((prevTime) => prevTime + 0.01);
-        }, 10);
-        setIntervalId(id);
-        setIsRunning(true);
-        startRecording();
-      }
+      setStartTime(Date.now());
+      clearInterval(intervalRef.current!);
+      intervalRef.current = window.setInterval(() => {
+        setNow(Date.now());
+      }, 10);
+
+      startRecording();
     }
   };
 
-  const handleReset = () => {
-    setIsRunning(false);
-    clearInterval(intervalId!);
-    setTime(0);
-  };
-
-  useEffect(() => {
-    const buttonAnimate = document.getElementById("button-hover");
-
-    if (!buttonAnimate) return;
-
-    const handleMouseMove = (evt: MouseEvent) => {
-      const rect = buttonAnimate.getBoundingClientRect();
-      const { clientX, clientY } = evt;
-
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
-
-      const height = buttonAnimate.clientHeight;
-      const width = buttonAnimate.clientWidth;
-
-      const yRotation = ((x - width / 2) / width) * 5;
-      const xRotation = -((y - height / 2) / height) * 5;
-
-      const transformString = `
-      perspective(500px)
-      scale(1.1)
-      rotateX(${xRotation}deg)
-      rotateY(${yRotation}deg)`;
-
-      buttonAnimate.style.transform = transformString;
-    };
-
-    const handleMouseOut = () => {
-      buttonAnimate.style.transform = `
-      perspective(500px)
-      scale(1)
-      rotateX(0)
-      rotateY(0)`;
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseout", handleMouseOut);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseout", handleMouseOut);
-    };
-  }, []);
+  let secondsPassed = 0;
+  if (startTime != null && now != null) {
+    secondsPassed = (now - startTime) / 1000;
+  }
 
   return (
-    <div className="flex flex-col justify-center gap-4 top-20 left-[10rem] relative ">
-      <div className="flex flex-col justify-center gap-4">
+    <div className="flex flex-col justify-center gap-4 top-20 left-[12rem] relative ">
+      <div className="flex flex-col justify-center  gap-4">
         <Button
-          className="left-[120px] text-xl bg-#FFFFFF66 w-[187px] h-[66px] hover:bg-red-700 text-white antialiased font-montserrat font-semibold custom-button"
+          className="left-[120px] text-xl w-[187px] h-[66px] hover:bg-red-700 text-white antialiased font-montserrat font-semibold custom-button"
           variant="flat"
-          color="primary"
           radius="sm"
           onPress={handleToggle}
         >
           <span>{isRecording ? "Stop" : "Record now"}</span>
         </Button>
-
-        {isRecording ? (
-          <time className="text-[1.2rem] text-white " id="timer">
-            {time.toFixed(1)} Seconds Recorded
+        {isRecording && (
+          <time
+            className=" left-[112px] relative text-[1.2rem] min-w-12 text-white font-founders flex"
+            id="timer"
+          >
+            <span className=" lock min-w-10">{secondsPassed.toFixed(1)} </span>
+            <span className="">Seconds Recorded</span>
           </time>
-        ) : null}
+        )}
       </div>
     </div>
   );
 };
 
 export default RecordingButton;
-
-//   <span className=" text-white font-bold absolute  -top-5">Click and</span>;

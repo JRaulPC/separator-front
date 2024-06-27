@@ -16,7 +16,7 @@ const displayMediaOptions = {
   selfBrowserSurface: "exclude",
   systemAudio: "include",
   surfaceSwitching: "include",
-  monitorTypeSurfaces: "include",
+  monitorTypeSurfaces: "exclude",
 };
 
 const useRecorder = () => {
