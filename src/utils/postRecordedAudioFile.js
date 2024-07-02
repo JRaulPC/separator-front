@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const localRoute = "http://127.0.0.1:5000/";
+export const localRoute = process.env.PUBLIC_URL;
 
 const postRecordedAudioFile = async (audioBlob) => {
   try {
