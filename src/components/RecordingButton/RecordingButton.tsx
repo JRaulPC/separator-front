@@ -13,6 +13,8 @@ const RecordingButton = (): React.ReactElement => {
     if (isRecording) {
       stopRecording();
       clearInterval(intervalRef.current!);
+
+      setNow(null);
     } else {
       setStartTime(Date.now());
       clearInterval(intervalRef.current!);

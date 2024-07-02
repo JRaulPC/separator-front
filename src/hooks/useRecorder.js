@@ -23,12 +23,15 @@ const useRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const mediaRecorderRef = useRef(null);
+  const mediaStreamRef = useRef(null);
 
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getDisplayMedia(
         displayMediaOptions
       );
+
+      mediaStreamRef.current = stream; // Store the media stream reference
 
       // Check if audio tracks are available
       const audioTracks = stream.getAudioTracks();
@@ -60,6 +63,12 @@ const useRecorder = () => {
 
           return [];
         });
+
+        // Stop all tracks to end the screen sharing
+        if (mediaStreamRef.current) {
+          mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+          mediaStreamRef.current = null;
+        }
       };
 
       mediaRecorderRef.current = mediaRecorder;
@@ -73,8 +82,12 @@ const useRecorder = () => {
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
-      setIsRecording(false);
     }
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+      mediaStreamRef.current = null;
+    }
+    setIsRecording(false);
   };
 
   return { isRecording, startRecording, stopRecording };

@@ -4,7 +4,7 @@ interface TitleProps {
 
 const Title = ({ isAboutOpen }: TitleProps): React.ReactElement => {
   return (
-    <div className="flex flex-row text-white justify-center pt-8">
+    <div className="flex flex-row text-white justify-center ">
       <h1
         id="target-title"
         className="target font-founders uppercase text-[12rem] flex flex-col"
@@ -19,8 +19,8 @@ const Title = ({ isAboutOpen }: TitleProps): React.ReactElement => {
         </span>
       </h1>
       <p className="pt-[100px] leading-6 pl-[460px] text-2xl absolute  opacity-80 ">
-        Record any song or sound selecting the tab where <br /> is being played
-        and get it separated by stems.
+        Record any song or sound by selecting the tab where <br /> it's playing,
+        and extract individual stems.
       </p>
     </div>
   );
