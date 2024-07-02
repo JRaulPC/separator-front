@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const localRoute = process.env.PUBLIC_URL;
+export const localRoute = process.env.REACT_APP_API_URL;
 
 const postRecordedAudioFile = async (audioBlob) => {
   try {

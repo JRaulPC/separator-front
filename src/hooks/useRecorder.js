@@ -21,6 +21,7 @@ const displayMediaOptions = {
 
 const useRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [recordedChunks, setRecordedChunks] = useState([]);
   const mediaRecorderRef = useRef(null);
   const mediaStreamRef = useRef(null);
@@ -52,7 +53,6 @@ const useRecorder = () => {
       };
 
       mediaRecorder.onstop = async () => {
-        // Use a functional update to ensure recordedChunks state is up-to-date
         setRecordedChunks((chunks) => {
           const blob = new Blob(chunks, { type: "audio/webm" });
 
